@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 构造函数注入 -->
+	<bean id="student" class="com.lywgames.bean.Student"> 
+		<constructor-arg name="id" value="101"></constructor-arg>
+		<constructor-arg name="name" value="zhangsan"></constructor-arg>
+	</bean> 
+	
+	<!-- set方法注入 -->
+	<bean id="teacher" class="com.lywgames.bean.Teacher"> 
+		<property name="id" value="901"></property>
+		<property name="name" value="xiaocui"></property>
+	</bean> 
+	
+	<!-- 注入list, set, map -->
+	<bean id="clazz" class="com.lywgames.bean.Clazz">  
+		<property name="teacher" ref="teacher"></property>
+		<property name="studentList">
+			<list>
+				<ref bean="student"/>
+				<ref bean="student"/>
+			</list>
+		</property>
+		<property name="studentSet">
+			<set>
+				<ref bean="student"/>
+				<ref bean="student"/>
+			</set>
+		</property>
+		<property name="studentMap">
+			<map>
+				<entry key="801" value-ref="student"></entry>
+				<entry key="802" value-ref="student"></entry>
+			</map>
+		</property>
+	</bean>
+</beans>
