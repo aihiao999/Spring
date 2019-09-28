@@ -30,7 +30,9 @@ public class CustomerAction extends ActionSupport implements ModelDriven<Custome
 	}
 
 	public String save() {
+		// 获取ServletContext
 		ServletContext sc = ServletActionContext.getServletContext();
+		// 通过WebApplicationContextUtils工具类从ServletContext里获取工厂
 		WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(sc);
 //		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 		CustomerService customerService = applicationContext.getBean(CustomerService.class);
