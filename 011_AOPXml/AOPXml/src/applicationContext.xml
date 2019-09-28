@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="userDao" class="com.lywgames.dao.impl.UserDaoImpl"></bean>
+	<bean id="aspectJAop" class="com.lywgames.aop.AspectJAop"></bean>
+	<aop:config>
+		<aop:pointcut expression="execution(* com.lywgames.dao.impl.UserDaoImpl.insert(..))" id="pointinsert" />
+		<aop:pointcut expression="execution(* com.lywgames.dao.impl.UserDaoImpl.select(..))" id="pointselect"/>
+		<aop:pointcut expression="execution(* com.lywgames.dao.impl.UserDaoImpl.delete(..))" id="pointdelete"/>
+		<aop:pointcut expression="execution(* com.lywgames.dao.impl.UserDaoImpl.update(..))" id="pointupdate"/>
+		
+		<aop:aspect ref="aspectJAop">
+			<aop:before method="beforeInsertCheck" pointcut-ref="pointinsert" />
+			<aop:after method="afterInsertCheck" pointcut-ref="pointinsert"/>
+			<aop:around method="arround" pointcut-ref="pointselect"/>
+			<aop:after-returning method="deleteAfterReturn" pointcut-ref="pointdelete" returning="result"/>
+			<aop:after-throwing method="updateException" pointcut-ref="pointupdate" throwing="ex" />
+			<aop:after method="myFinally" pointcut-ref="pointupdate"/>
+		</aop:aspect>
+	</aop:config>
+
+</beans>
