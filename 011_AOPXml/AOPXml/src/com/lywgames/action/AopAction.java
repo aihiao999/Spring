@@ -11,8 +11,8 @@ public class AopAction {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		UserDao userDao = context.getBean(UserDao.class);
 		userDao.insert();
-		userDao.select();
 		userDao.delete();
+		userDao.select();
 		userDao.update();
 		context.close();
 	}
