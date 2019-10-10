@@ -17,11 +17,15 @@
 		<aop:pointcut expression="execution(* com.lywgames.dao.impl.UserDaoImpl.update(..))" id="pointupdate"/>
 		
 		<aop:aspect ref="aspectJAop">
+			<!-- 前置通知 -->
 			<aop:before method="beforeInsertCheck" pointcut-ref="pointinsert" />
-			<aop:after method="afterInsertCheck" pointcut-ref="pointinsert"/>
+			<!-- 后置通知 -->
+			<aop:after-returning method="afterdelete" pointcut-ref="pointdelete" returning="result"/>
+			<!-- 环绕通知 -->
 			<aop:around method="arround" pointcut-ref="pointselect"/>
-			<aop:after-returning method="deleteAfterReturn" pointcut-ref="pointdelete" returning="result"/>
+			<!-- 异常通知 -->
 			<aop:after-throwing method="updateException" pointcut-ref="pointupdate" throwing="ex" />
+			<!-- 最终通知 -->
 			<aop:after method="myFinally" pointcut-ref="pointupdate"/>
 		</aop:aspect>
 	</aop:config>

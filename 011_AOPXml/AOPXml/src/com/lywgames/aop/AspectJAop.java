@@ -6,9 +6,6 @@ public class AspectJAop {
 	public void beforeInsertCheck() {
 		System.out.println("检测插入数据");
 	}
-	public void afterInsertCheck() {
-		System.out.println("检测插入数据是否成功");
-	}
 	public Object arround(ProceedingJoinPoint joinPoint) {
 		try {
 			System.out.println("查询前鼓鼓掌。");
@@ -20,7 +17,7 @@ public class AspectJAop {
 		}
 		return null;
 	}
-	public void deleteAfterReturn(int result) {
+	public void afterdelete(int result) {
 		System.out.println("删除后返回值:" + result);
 	}
 	public void updateException(Throwable ex) {
